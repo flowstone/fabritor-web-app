@@ -9,23 +9,23 @@ const APP_LIST = [
   {
     title: <Trans i18nKey="panel.app.qrcode" />,
     key: 'qrcode',
-    icon: <QrcodeOutlined style={{ fontSize: 30 }} />
+    icon: <QrcodeOutlined style={{ fontSize: 30 }} />,
   },
   {
     title: <Trans i18nKey="panel.app.emoji" />,
     key: 'emoji',
-    icon: <SmileOutlined style={{ fontSize: 30 }} />
-  }
+    icon: <SmileOutlined style={{ fontSize: 30 }} />,
+  },
 ];
 
-export default function AppPanel () {
+export default function AppPanel() {
   const [app, setApp] = useState('');
-  
+
   const handleAppClick = (item) => {
     setApp(item.key);
-  }
+  };
 
-  const back2List = () => { setApp(''); }
+  const back2List = () => { setApp(''); };
 
   const renderAppList = () => {
     return (
@@ -43,25 +43,25 @@ export default function AppPanel () {
               key={item.key}
               cover={item.icon}
               bodyStyle={{ padding: 12 }}
-              onClick={() => { handleAppClick(item) }}
+              onClick={() => { handleAppClick(item); }}
             >
               <Card.Meta description={item.title} style={{ textAlign: 'center' }} />
             </Card>
           ))
         }
       </Flex>
-    )
-  }
+    );
+  };
 
   const renderApp = () => {
     if (app === 'qrcode') {
       return <QRCodePanel back={back2List} />;
     }
     if (app === 'emoji') {
-      return <EmojiPanel back={back2List} />
+      return <EmojiPanel back={back2List} />;
     }
     return null;
-  }
+  };
 
   return (
     <div>
@@ -69,5 +69,5 @@ export default function AppPanel () {
         app ? renderApp() : renderAppList()
       }
     </div>
-  )
+  );
 }

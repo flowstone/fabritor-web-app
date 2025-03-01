@@ -20,10 +20,10 @@ const { Title } = Typography;
 const siderStyle: React.CSSProperties = {
   position: 'relative',
   backgroundColor: '#fff',
-  borderLeft: '1px solid #e8e8e8'
+  borderLeft: '1px solid #e8e8e8',
 };
 
-export default function Setter () {
+export default function Setter() {
   const { object, isReady } = useContext(GlobalStateContext);
   const { t } = useTranslation();
 
@@ -41,7 +41,7 @@ export default function Setter () {
       case 'circle':
       case 'triangle':
       case 'polygon':
-      case 'ellipse':  
+      case 'ellipse':
         return <ShapeSetter />;
       case 'f-line':
       case 'f-arrow':
@@ -51,12 +51,12 @@ export default function Setter () {
         return <ImageSetter />;
       case 'path':
         if (object?.sub_type === 'rough') {
-          return <RoughSetter />
+          return <RoughSetter />;
         }
         return <PathSetter />;
       case 'group':
         if (object?.sub_type === 'rough') {
-          return <RoughSetter />
+          return <RoughSetter />;
         }
         return <GroupSetter />;
       case 'activeSelection':
@@ -64,20 +64,20 @@ export default function Setter () {
       default:
         return null;
     }
-  }
+  };
 
   const renderSetter = () => {
     const Setter = getRenderSetter();
     if (Setter) {
       return (
         <>
-        {Setter}
-        <Divider />
+          {Setter}
+          <Divider />
         </>
-      )
+      );
     }
     return null;
-  }
+  };
 
   const getSetterTitle = () => {
     if (!isReady) return null;
@@ -90,7 +90,7 @@ export default function Setter () {
       case 'circle':
       case 'triangle':
       case 'polygon':
-      case 'ellipse':  
+      case 'ellipse':
         return t('panel.material.shape');
       case 'line':
       case 'f-line':
@@ -114,11 +114,11 @@ export default function Setter () {
         }
         return t('setter.group.title');
       case 'activeSelection':
-        return t('setter.group.title')
+        return t('setter.group.title');
       default:
-        return t('setter.sketch.title')
+        return t('setter.sketch.title');
     }
-  }
+  };
 
   const renderSetterTitle = () => {
     const title = getSetterTitle();
@@ -131,8 +131,8 @@ export default function Setter () {
           {getSetterTitle()}
         </Title>
       </CenterV>
-    )
-  }
+    );
+  };
 
   return (
     <Sider
@@ -148,5 +148,5 @@ export default function Setter () {
         <CommonSetter />
       </div>
     </Sider>
-  )
+  );
 }

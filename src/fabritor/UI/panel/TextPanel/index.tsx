@@ -5,20 +5,20 @@ import { useContext } from 'react';
 import { GlobalStateContext } from '@/context';
 import { useTranslation } from '@/i18n/utils';
 
-export default function TextPanel () {
+export default function TextPanel() {
   const { editor } = useContext(GlobalStateContext);
   const { t } = useTranslation();
-  
+
   const handleAddText = async (options) => {
-    await createTextbox({  ...options, canvas: editor.canvas });
-  }
+    await createTextbox({ ...options, canvas: editor.canvas });
+  };
 
   return (
     <div className="fabritor-panel-wrapper">
-      <Button type="primary" block onClick={() => { handleAddText({}) }} size="large">
+      <Button type="primary" block onClick={() => { handleAddText({}); }} size="large">
         {t('panel.text.add')}
       </Button>
       <PresetFontPanel addTextBox={handleAddText} />
     </div>
-  )
+  );
 }

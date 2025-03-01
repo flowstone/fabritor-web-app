@@ -5,7 +5,7 @@ import Logo from './Logo';
 import BaseInfo from './BaseInfo';
 import { CenterV } from '@/fabritor/components/Center';
 
-const { Header} = Layout;
+const { Header } = Layout;
 
 const headerStyle: React.CSSProperties = {
   padding: 0,
@@ -13,7 +13,7 @@ const headerStyle: React.CSSProperties = {
   backgroundColor: '#fff',
   display: 'flex',
   alignItems: 'center',
-  borderBottom: '1px solid #e8e8e8'
+  borderBottom: '1px solid #e8e8e8',
 };
 
 export default function () {
@@ -29,5 +29,5 @@ export default function () {
       </CenterV>
       <Export />
     </Header>
-  )
+  );
 }

@@ -19,7 +19,7 @@ const { Sider } = Layout;
 const siderStyle: React.CSSProperties = {
   position: 'relative',
   backgroundColor: '#fff',
-  borderRight: '1px solid #e8e8e8'
+  borderRight: '1px solid #e8e8e8',
 };
 
 const iconStyle = { fontSize: 18, marginRight: 0 };
@@ -28,36 +28,36 @@ const OBJECT_TYPES = [
   {
     label: <Trans i18nKey="panel.design.title" />,
     value: 'design',
-    icon: <AlertOutlined style={iconStyle} />
+    icon: <AlertOutlined style={iconStyle} />,
   },
   {
     label: <Trans i18nKey="panel.text.title" />,
     value: 'text',
-    icon: <FileTextOutlined style={iconStyle} />
+    icon: <FileTextOutlined style={iconStyle} />,
   },
   {
     label: <Trans i18nKey="panel.image.title" />,
     value: 'image',
-    icon: <PictureOutlined style={iconStyle} />
+    icon: <PictureOutlined style={iconStyle} />,
   },
   {
     label: <Trans i18nKey="panel.material.title" />,
     value: 'shape',
-    icon: <BorderOutlined style={iconStyle} />
+    icon: <BorderOutlined style={iconStyle} />,
   },
   {
     label: <Trans i18nKey="panel.paint.title" />,
     value: 'paint',
-    icon: <BulbOutlined style={iconStyle} />
+    icon: <BulbOutlined style={iconStyle} />,
   },
   {
     label: <Trans i18nKey="panel.app.title" />,
     value: 'app',
-    icon: <AppstoreOutlined style={iconStyle} />
-  }
+    icon: <AppstoreOutlined style={iconStyle} />,
+  },
 ];
 
-export default function Panel () {
+export default function Panel() {
   const { editor } = useContext(GlobalStateContext);
 
   const renderPanel = (value) => {
@@ -80,7 +80,7 @@ export default function Panel () {
       return <AppPanel />;
     }
     return null;
-  }
+  };
 
   const renderLabel = (item) => {
     return (
@@ -88,8 +88,8 @@ export default function Panel () {
         <div>{item.icon}</div>
         <div>{item.label}</div>
       </Flex>
-    )
-  }
+    );
+  };
 
   const handleTabChange = (k) => {
     if (editor?.canvas) {
@@ -99,7 +99,7 @@ export default function Panel () {
         editor.canvas.isDrawingMode = false;
       }
     }
-  }
+  };
 
   return (
     <Sider
@@ -117,7 +117,7 @@ export default function Panel () {
             return {
               label: renderLabel(item),
               key: item.value,
-              children: renderPanel(item.value)
+              children: renderPanel(item.value),
             };
           })
         }
@@ -131,5 +131,5 @@ export default function Panel () {
         <LocalesSwitch />
       </FloatButton.Group>
     </Sider>
-  )
+  );
 }
