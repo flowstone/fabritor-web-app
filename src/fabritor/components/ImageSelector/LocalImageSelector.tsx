@@ -3,14 +3,14 @@ import { Button } from 'antd';
 import LocalFileSelector from '../LocalFileSelector';
 import { useTranslation } from '@/i18n/utils';
 
-export default function LocalImageSelector (props) {
+export default function LocalImageSelector(props) {
   const { onChange, ...rest } = props;
   const localFileSelectorRef = useRef<any>();
   const { t } = useTranslation();
 
   const handleClick = () => {
     localFileSelectorRef.current?.start?.();
-  }
+  };
 
   const handleFileChange = (file) => {
     if (file.type === 'image/svg+xml') {
@@ -18,13 +18,13 @@ export default function LocalImageSelector (props) {
       // addSvg?.({ url });
       return;
     }
-    
+
     const reader = new FileReader();
     reader.onload = (revt) => {
       onChange?.(revt.target.result);
-    }
+    };
     reader.readAsDataURL(file);
-  }
+  };
 
   return (
     <div>

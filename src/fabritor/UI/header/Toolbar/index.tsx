@@ -12,7 +12,7 @@ import './index.scss';
 
 const i18nKeySuffix = 'header.toolbar';
 
-export default function Toolbar () {
+export default function Toolbar() {
   const { setActiveObject, editor } = useContext(GlobalStateContext);
   const [panEnable, setPanEnable] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
@@ -22,18 +22,18 @@ export default function Toolbar () {
     Modal.confirm({
       title: <Trans i18nKey={`${i18nKeySuffix}.clear_confirm`} />,
       icon: <ExclamationCircleFilled />,
-      async onOk () {
+      async onOk() {
         await editor.clearCanvas();
         setActiveObject(editor.sketch);
         editor.fireCustomModifiedEvent();
-      }
+      },
     });
-  }
+  };
 
   const enablePan = () => {
     const enable = editor.switchEnablePan();
     setPanEnable(enable);
-  }
+  };
 
   useEffect(() => {
     if (editor) {
@@ -45,16 +45,16 @@ export default function Toolbar () {
   return (
     <CenterV gap={4} style={{ borderRight: '1px solid #e8e8e8', paddingRight: 12 }}>
       <ToolbarItem
-        disabled={!canUndo} 
-        title={<Trans i18nKey={`${i18nKeySuffix}.undo`} />} 
-        onClick={() => { editor.fhistory.undo() }}
+        disabled={!canUndo}
+        title={<Trans i18nKey={`${i18nKeySuffix}.undo`} />}
+        onClick={() => { editor.fhistory.undo(); }}
       >
         <UndoOutlined style={{ fontSize: 20 }} />
       </ToolbarItem>
       <ToolbarItem
         disabled={!canRedo}
-        title={<Trans i18nKey={`${i18nKeySuffix}.redo`} />} 
-        onClick={() => { editor.fhistory.redo() }}
+        title={<Trans i18nKey={`${i18nKeySuffix}.redo`} />}
+        onClick={() => { editor.fhistory.redo(); }}
       >
         <RedoOutlined style={{ fontSize: 20 }} />
       </ToolbarItem>
@@ -64,14 +64,14 @@ export default function Toolbar () {
         title={panEnable ? <Trans i18nKey={`${i18nKeySuffix}.select`} /> : <Trans i18nKey={`${i18nKeySuffix}.pan`} />}
       >
         {
-          panEnable? 
-          <DragOutlined style={{ fontSize: 22, color: panEnable ? '#000' : '#ccc' }} /> :
-          <img src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(DRAG_ICON)}`} style={{ width: 22, height: 22 }} />
+          panEnable
+            ? <DragOutlined style={{ fontSize: 22, color: panEnable ? '#000' : '#ccc' }} />
+          : <img src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(DRAG_ICON)}`} style={{ width: 22, height: 22 }} />
         }
       </ToolbarItem>
       <ToolbarItem onClick={clearCanvas} title={<Trans i18nKey={`${i18nKeySuffix}.clear`} />}>
         <ClearOutlined style={{ fontSize: 20 }} />
       </ToolbarItem>
     </CenterV>
-  )
+  );
 }

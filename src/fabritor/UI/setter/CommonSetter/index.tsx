@@ -15,41 +15,41 @@ const ALIGH_TYPES = [
   {
     label: <Trans i18nKey="setter.common.center" />,
     icon: PicCenterOutlined,
-    key: 'center'
+    key: 'center',
   },
   {
     label: <Trans i18nKey="setter.common.align_left" />,
     icon: AlignLeftOutlined,
-    key: 'left'
+    key: 'left',
   },
   {
     label: <Trans i18nKey="setter.common.center_h" />,
     icon: AlignCenterOutlined,
-    key: 'centerH'
+    key: 'centerH',
   },
   {
     label: <Trans i18nKey="setter.common.align_right" />,
     icon: AlignRightOutlined,
-    key: 'right'
+    key: 'right',
   },
   {
     label: <Trans i18nKey="setter.common.align_top" />,
     icon: VerticalAlignTopOutlined,
-    key: 'top'
+    key: 'top',
   },
   {
     label: <Trans i18nKey="setter.common.center_v" />,
     icon: VerticalAlignMiddleOutlined,
-    key: 'centerV'
+    key: 'centerV',
   },
   {
     label: <Trans i18nKey="setter.common.align_bottom" />,
     icon: VerticalAlignBottomOutlined,
-    key: 'bottom'
-  }
-]
+    key: 'bottom',
+  },
+];
 
-export default function CommonSetter () {
+export default function CommonSetter() {
   const { object, editor } = useContext(GlobalStateContext);
   const { t } = useTranslation();
   const [lock, setLock] = useState(false);
@@ -59,24 +59,24 @@ export default function CommonSetter () {
     object.set({
       lockMovementX: !lock,
       lockMovementY: !lock,
-      hasControls: !!lock
+      hasControls: !!lock,
     });
     editor.canvas.requestRenderAll();
     setLock(!lock);
     editor.fireCustomModifiedEvent();
-  }
+  };
 
   const handleOpacity = (v) => {
     object.set('opacity', v);
     setOpacity(v);
     editor.canvas.requestRenderAll();
-  }
+  };
 
   const handleFlip = (key) => {
     object.set(key, !object[key]);
     editor.canvas.requestRenderAll();
     editor.fireCustomModifiedEvent();
-  }
+  };
 
   const alignObject = (alignType) => {
     switch (alignType) {
@@ -109,7 +109,7 @@ export default function CommonSetter () {
     }
     editor.canvas.requestRenderAll();
     editor.fireCustomModifiedEvent();
-  }
+  };
 
   useEffect(() => {
     if (object) {
@@ -125,12 +125,13 @@ export default function CommonSetter () {
       <CenterV height={30} gap={8} justify="space-between">
         <ToolbarItem
           tooltipProps={{ placement: 'top' }}
-          onClick={handleLock} title={lock ? t('setter.common.unlock') : t('setter.common.lock')}
+          onClick={handleLock}
+          title={lock ? t('setter.common.unlock') : t('setter.common.lock')}
         >
           {
-            lock ? 
-            <UnlockOutlined style={{ fontSize: 20 }} /> :
-            <LockOutlined style={{ fontSize: 20 }} />
+            lock
+            ? <UnlockOutlined style={{ fontSize: 20 }} />
+            : <LockOutlined style={{ fontSize: 20 }} />
           }
         </ToolbarItem>
         <ToolbarItem tooltipProps={{ placement: 'top' }} title={t('setter.common.opacity')}>
@@ -160,10 +161,10 @@ export default function CommonSetter () {
           <DeleteOutlined style={{ fontSize: 20 }} />
         </ToolbarItem>
         {
-          object.type === 'f-image' ?
-          <ToolbarItem
-            tooltipProps={{ placement: 'top' }}
-            title={t('setter.common.flip')}
+          object.type === 'f-image'
+          ? <ToolbarItem
+              tooltipProps={{ placement: 'top' }}
+              title={t('setter.common.flip')}
           >
             <FlipSetter onChange={handleFlip} />
           </ToolbarItem> : null
@@ -188,5 +189,5 @@ export default function CommonSetter () {
       <Divider style={{ margin: '16px 0' }} />
       <PositionSetter />
     </>
-  )
+  );
 }

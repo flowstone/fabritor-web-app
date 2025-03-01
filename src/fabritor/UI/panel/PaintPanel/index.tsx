@@ -8,7 +8,7 @@ import { GlobalStateContext } from '@/context';
 import PathSetterForm from '../../setter/PathSetter/PathSetterForm';
 import { useTranslation } from '@/i18n/utils';
 
-export default function PaintPanel () {
+export default function PaintPanel() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDrawingMode, setIsDrawingMode] = useState(true);
   const { editor } = useContext(GlobalStateContext);
@@ -26,7 +26,7 @@ export default function PaintPanel () {
       editor.canvas.freeDrawingBrush.strokeLineCap = options.strokeLineCap;
     }
     if (options.shadow) {
-      const shadow = editor.canvas.freeDrawingBrush.shadow;
+      const { shadow } = editor.canvas.freeDrawingBrush;
       const originalShadowObject = shadow ? shadow.toObject() : {};
       const newShadowObject = {
         blur: options.shadow.width || originalShadowObject.blur,
@@ -34,15 +34,15 @@ export default function PaintPanel () {
         offsetY: options.shadow.offset || originalShadowObject.offsetY,
         affectStroke: true,
         color: options.shadow.color || originalShadowObject.color,
-      }
+      };
       editor.canvas.freeDrawingBrush.shadow = new fabric.Shadow(newShadowObject);
     }
-  }
+  };
 
   const stopFreeDrawMode = () => {
     editor.canvas.isDrawingMode = !editor.canvas.isDrawingMode;
     setIsDrawingMode(!isDrawingMode);
-  }
+  };
 
   const initBrush = () => {
     if (editor) {
@@ -67,8 +67,8 @@ export default function PaintPanel () {
         shadow: {
           color: '#000000',
           width: 0,
-          offset: 0
-        }
+          offset: 0,
+        },
       });
     }
 
@@ -76,8 +76,8 @@ export default function PaintPanel () {
       if (editor?.canvas) {
         editor.canvas.isDrawingMode = false;
       }
-    }
-  }
+    };
+  };
 
   useEffect(() => {
     return initBrush();
@@ -87,23 +87,23 @@ export default function PaintPanel () {
     <div className="fabritor-panel-wrapper">
       <Flex wrap="wrap" justify="space-around">
         {
-          BrushList.map((item , index) => (
+          BrushList.map((item, index) => (
             <Tooltip trigger="hover" title={item.title}>
               <div
                 key={item.key}
                 className="fabritor-panel-shape-item"
                 onClick={() => {
                   handleBrushChange(item.options);
-                  setActiveIndex(index); 
+                  setActiveIndex(index);
                   setPenFormValues({
                     ...penFormValues,
-                    ...item.options
+                    ...item.options,
                   });
                 }}
-                style={{ 
+                style={{
                   padding: '4px 8px',
                   backgroundColor: activeIndex === index ? '#eeeeee' : 'rgba(0,0,0,0)',
-                  borderRadius: 8
+                  borderRadius: 8,
                 }}
               >
                 <img src={`data:image/svg+xml,${encodeURIComponent(item.svg)}`} alt="" style={{ width: 56, height: 56 }} />
@@ -122,12 +122,12 @@ export default function PaintPanel () {
         <Button
           style={{ width: 64 }}
           onClick={stopFreeDrawMode}
-          type={isDrawingMode ? 'default' : 'primary'} 
+          type={isDrawingMode ? 'default' : 'primary'}
           title={isDrawingMode ? t('panel.paint.stop') : t('panel.paint.start')}
         >
           <img src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(DRAG_ICON)}`} style={{ width: 22, height: 22 }} />
         </Button>
       </Flex>
     </div>
-  )
+  );
 }

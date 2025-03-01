@@ -13,7 +13,7 @@
     "windows": [
       {
         "title": "fabritor-web-app",
-        "width": 800,
+        "width": 1000,
         "height": 600,
         "resizable": true,
         "fullscreen": false
