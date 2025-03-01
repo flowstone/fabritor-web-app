@@ -3,7 +3,7 @@ import * as FontFaceObserver from 'fontfaceobserver';
 import { v4 as uuidv4 } from 'uuid';
 import { FONT_PRESET_FAMILY_LIST, LOG_PREFIX } from './constants';
 import { save } from '@tauri-apps/plugin-dialog';
-import { writeFile } from '@tauri-apps/plugin-fs';
+import { writeFile, BaseDirectory } from '@tauri-apps/plugin-fs';
 
 export const loadFont = async (f: string) => {
   if (!f) return Promise.resolve();
@@ -17,7 +17,7 @@ export const uuid = () => {
   return uuidv4();
 };
 
-export const downloadFile = (content: string, type: string, name: string) => {
+export const downloadFile = async (content: string, type: string, name: string) => {
   const link = document.createElement('a');
   link.href = content;
   link.download = `${name || uuid()}.${type}`;

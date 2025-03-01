@@ -47,6 +47,9 @@
 npm install -g yarn
 yarn
 yarn start
+# tauri
+yarn tauri dev
+yarn tauri build
 ```
 
 访问: http://localhost:3000
