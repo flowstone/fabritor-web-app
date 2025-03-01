@@ -37,9 +37,7 @@ export default function BaseInfo () {
           maxRows: 1
         }
       }}
-      ellipsis={{
-        rows: 1
-      }}
+      ellipsis={true}
       style={{ margin: 0, width: 200 }}
     >
       {desc || ''}
