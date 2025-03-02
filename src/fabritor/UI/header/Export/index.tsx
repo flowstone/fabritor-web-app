@@ -24,20 +24,28 @@ export default function Export() {
     localFileSelectorRef.current?.start?.();
   };
 
-  const handleFileChange = (file) => {
+  const handleFileChange = async (file) => {
     setReady(false);
-    const reader = new FileReader();
-    reader.onload = (async (evt) => {
-      const json = evt.target?.result as string;
-      if (json) {
-        await editor.loadFromJSON(json, true);
-        editor.fhistory.reset();
-        setReady(true);
-        setActiveObject(null);
-        editor.fireCustomModifiedEvent();
-      }
-    });
-    reader.readAsText(file);
+    try {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const jsonData = JSON.parse(e.target?.result as string);
+          await editor.loadFromJSON(jsonData, true);
+          editor.fhistory.reset();
+          setReady(true);
+          setActiveObject(null);
+          editor.fireCustomModifiedEvent();
+        } catch (err) {
+          console.error('Failed to parse JSON:', err);
+          message.error(t(`${i18nKeySuffix}.import_fail`));
+        }
+      };
+      reader.readAsText(file);
+    } catch (e) {
+      console.error('Failed to load file:', e);
+      message.error(t(`${i18nKeySuffix}.import_fail`));
+    }
   };
 
   const copyImage = async () => {
@@ -55,34 +63,40 @@ export default function Export() {
     }
   };
 
-  const handleClick = ({ key }) => {
+  const handleClick = async ({ key }) => {
     const { sketch } = editor;
     // @ts-ignore
     const name = sketch.fabritor_desc;
-    switch (key) {
-      case 'png':
-        const png = editor.export2Img({ format: 'png' });
-        downloadFile(png, 'png', name);
-        break;
-      case 'jpg':
-        const jpg = editor.export2Img({ format: 'jpeg' });
-        downloadFile(jpg, 'jpg', name);
-        break;
-      case 'svg':
-        const svg = editor.export2Svg();
-        downloadFile(svg, 'svg', name);
-        break;
-      case 'json':
-        const json = editor.canvas2Json();
-        downloadFile(`data:text/json;charset=utf-8,${encodeURIComponent(
-          JSON.stringify(json, null, 2),
-        )}`, 'json', name);
-        break;
-      case 'clipboard':
-        copyImage();
-        break;
-      default:
-        break;
+    try {
+      switch (key) {
+        case 'png':
+          const png = editor.export2Img({ format: 'png' });
+          downloadFile(png, 'png', name);
+          break;
+        case 'jpg':
+          const jpg = editor.export2Img({ format: 'jpeg' });
+          downloadFile(jpg, 'jpg', name);
+          break;
+        case 'svg':
+          const svg = editor.export2Svg();
+          downloadFile(svg, 'svg', name);
+          break;
+        case 'json':
+          const json = editor.canvas2Json();
+          downloadFile(`data:text/json;charset=utf-8,${encodeURIComponent(
+              JSON.stringify(json, null, 2),
+          )}`, 'json', name);
+          break;
+
+        case 'clipboard':
+          await copyImage();
+          break;
+        default:
+          break;
+      }
+    } catch (e) {
+      message.error('Failed to save file');
+      console.error('Export error:', e);
     }
   };
   return (
