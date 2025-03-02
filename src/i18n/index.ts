@@ -26,6 +26,10 @@ i18n
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
+    // 后端配置，指定翻译文件的加载路径
+    backend: {
+      loadPath: './locales/{{lng}}/{{ns}}.json',
+    },
   });
 
 

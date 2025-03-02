@@ -66,6 +66,10 @@
     ],
     "directories": {
       "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "public/favicon.ico"
     }
   },
   "license": "MIT",

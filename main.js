@@ -18,7 +18,6 @@ function createWindow() {
   if (app.isPackaged) {
     // 在打包后的模式下加载构建后的文件
     mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
-    console.log(__dirname);
   } else {
     // 在开发模式下加载 React 开发服务器
     mainWindow.loadURL('http://localhost:3000');
