@@ -60,3 +60,20 @@ yarn start
 <p align="center"><img alt="photor" src="/public/photor.png"></p>
 
 欢迎提交自己的作品或者项目。
+
+
+### 特殊说明
+项目改成Electron项目，
+
+#### 项目测试
+修改main.js文件中的
+```js
+  mainWindow.loadURL('http://localhost:3000'); // 开发模式下访问 React 项目
+```
+
+```bash 
+npm run start
+npm run electron
+```
+
+#### 项目打包

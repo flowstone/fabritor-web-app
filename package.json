@@ -1,7 +1,7 @@
 {
-  "name": "fabritor-web",
-  "version": "3.0.1",
-  "description": "fabritor-web",
+  "name": "fabritor-web-app",
+  "version": "0.1.0",
+  "description": "fabritor-web-app",
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@emoji-mart/data": "^1.1.2",
@@ -35,6 +35,7 @@
     "@types/react-dom": "^18.0.0",
     "concurrently": "^9.1.2",
     "electron": "^34.3.0",
+    "electron-builder": "^25.1.8",
     "eslint": "^8.35.0",
     "stylelint": "^15.2.0",
     "surge": "^0.23.1",
@@ -42,6 +43,7 @@
     "wait-on": "^8.0.2"
   },
   "main": "main.js",
+  "homepage": "./",
   "scripts": {
     "start": "ice start --speedup",
     "build": "ice build",
@@ -49,10 +51,22 @@
     "eslint": "eslint ./src --cache --ext .js,.jsx,.ts,.tsx",
     "eslint:fix": "npm run eslint -- --fix",
     "stylelint": "stylelint \"src/**/*.{css,scss,less}\" --cache",
-    "electron": "electron ."
+    "electron": "electron .",
+    "electron-builder": "ice build & electron-builder"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "build": {
+    "appId": "tech.xueyao.app",
+    "productName": "FabritorApp",
+    "files": [
+      "**/*",
+      "build/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    }
   },
   "license": "MIT",
   "repository": "https://github.com/sleepy-zone/fabritor-web"
