@@ -57,21 +57,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "build": {
-    "appId": "tech.xueyao.app",
-    "productName": "FabritorApp",
-    "files": [
-      "**/*",
-      "build/**/*"
-    ],
-    "directories": {
-      "output": "dist"
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "public/favicon.ico"
-    }
-  },
   "license": "MIT",
   "repository": "https://github.com/sleepy-zone/fabritor-web"
 }
