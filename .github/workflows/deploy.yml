@@ -1,0 +1,71 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-macos-x86:
+    runs-on: macos-13 # macos13支持Intel平台，14之后默认是ARM平台，Intel平台要收费
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # 3. Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Build React app (This will generate the 'build' folder)
+      - name: Build React app
+        run: npm run build
+
+      # 5. Build Electron app using electron-builder
+      - name: Build Electron app
+        run: npm run electron-builder
+
+      - name: Upload DMG Package
+        uses: actions/upload-artifact@v4
+        with:
+          path: dist/FabritorApp-0.1.0.dmg
+          name: FabritorApp-0.1.0-macOS-x86
+  build-macos-arm:
+    runs-on: macos-latest # macos13支持Intel平台，14之后默认是ARM平台，Intel平台要收费
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # 3. Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Build React app (This will generate the 'build' folder)
+      - name: Build React app
+        run: npm run build
+
+      # 5. Build Electron app using electron-builder
+      - name: Build Electron app
+        run: npm run electron-builder
+
+      - name: Upload DMG Package
+        uses: actions/upload-artifact@v4
+        with:
+          path: dist/FabritorApp-0.1.0.dmg
+          name: FabritorApp-0.1.0-macOS-arm
