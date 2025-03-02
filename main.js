@@ -15,10 +15,14 @@ function createWindow() {
   });
 
   // 加载 React 应用的构建文件
-  // mainWindow.loadURL('http://localhost:3000'); // 开发模式下访问 React 项目
-  // 或者在生产模式下加载构建后的 HTML 文件
-  mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
-
+  if (app.isPackaged) {
+    // 在打包后的模式下加载构建后的文件
+    mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+    console.log(__dirname);
+  } else {
+    // 在开发模式下加载 React 开发服务器
+    mainWindow.loadURL('http://localhost:3000');
+  }
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
